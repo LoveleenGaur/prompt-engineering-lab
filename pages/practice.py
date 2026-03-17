@@ -15,6 +15,10 @@ def show():
     st.subheader("Task")
     st.write(task["task"])
 
+    st.write(f"**Domain:** {task.get('domain', 'General')}")
+    st.write(f"**Difficulty:** {task.get('difficulty', 'Basic')}")
+    st.info(task.get("hint", ""))
+
     st.subheader("What success looks like")
     for item in task["success_criteria"]:
         st.write(f"- {item}")
