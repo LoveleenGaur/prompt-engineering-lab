@@ -36,3 +36,14 @@ def show():
             st.success("Practice attempt saved. Now open Evaluate Prompt to score it.")
         else:
             st.warning("Please write a prompt first.")
+            st.markdown("---")
+st.subheader("📂 Previous Attempts")
+
+attempts = st.session_state.get("practice_attempts", [])
+
+if attempts:
+    for i, a in enumerate(attempts[::-1], 1):
+        with st.expander(f"Attempt {i} — {a['task']}"):
+            st.write(a["prompt"])
+else:
+    st.write("No attempts yet.")
