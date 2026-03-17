@@ -7,19 +7,31 @@ st.set_page_config(
     layout="wide"
 )
 
-# ---------- NAVIGATION ----------
-pages = {
-    "Home": "home",
-    "Learn Prompt Engineering": "learn",
-    "Evaluate Prompt": "evaluate",
-    "Practice Lab": "practice",
-    "Prompt Templates": "templates",
-    "Progress Dashboard": "progress"
+# ---------- HIDE DEFAULT SIDEBAR ----------
+st.markdown("""
+<style>
+section[data-testid="stSidebarNav"] {
+    display: none;
 }
+</style>
+""", unsafe_allow_html=True)
 
-selection = st.sidebar.radio("Navigation", list(pages.keys()))
+# ---------- CUSTOM NAVIGATION ----------
+st.sidebar.title("Navigation")
 
-# ---------- ROUTER ----------
+selection = st.sidebar.radio(
+    "",
+    [
+        "Home",
+        "Learn Prompt Engineering",
+        "Evaluate Prompt",
+        "Practice Lab",
+        "Prompt Templates",
+        "Progress Dashboard"
+    ]
+)
+
+# ---------- HOME PAGE ----------
 if selection == "Home":
     st.title("🧠 Prompt Engineering Lab")
     st.subheader("Learn, practice, evaluate, and improve AI prompts")
@@ -41,30 +53,26 @@ if selection == "Home":
     ### What this platform does
 
     Prompt Engineering Lab helps you:
-    - Design better prompts
-    - Evaluate using SHARP
-    - Learn through real examples
+    - Design better prompts  
+    - Evaluate using SHARP  
+    - Learn through real examples  
     - Practice across domains (marketing, HR, finance, etc.)
 
     The evaluation engine is powered by the **SHARP Framework**, developed by Dr. Loveleen Gaur.
     """)
 
+# ---------- ROUTING (IMPORTANT CHANGE HERE) ----------
 elif selection == "Learn Prompt Engineering":
-    import pages.learn as learn
-    learn.show()
+    import pages.learn
 
 elif selection == "Evaluate Prompt":
-    import pages.evaluate as evaluate
-    evaluate.show()
+    import pages.evaluate
 
 elif selection == "Practice Lab":
-    import pages.practice as practice
-    practice.show()
+    import pages.practice
 
 elif selection == "Prompt Templates":
-    import pages.templates as templates
-    templates.show()
+    import pages.templates
 
 elif selection == "Progress Dashboard":
-    import pages.progress as progress
-    progress.show()
+    import pages.progress
