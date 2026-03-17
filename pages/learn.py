@@ -2,16 +2,47 @@ import streamlit as st
 
 def show():
     st.title("📚 Learn Prompt Engineering")
+    st.caption("A structured guide to designing high-quality AI prompts.")
+
+    st.markdown("---")
+
+    # --------------------------------------------------
+    # SECTION 1: WHAT IS PROMPT ENGINEERING
+    # --------------------------------------------------
+    st.header("🔹 What is Prompt Engineering?")
 
     st.markdown("""
-    Prompt engineering is the art of designing instructions that guide AI to produce accurate, structured, and useful outputs.
+    Prompt engineering is the process of designing inputs that guide AI systems to produce accurate, structured, and useful outputs.
+
+    A good prompt reduces ambiguity and increases control over:
+    - quality of response
+    - structure of output
+    - relevance of content
+    """)
+
+    # --------------------------------------------------
+    # SECTION 2: WHY PROMPTS FAIL
+    # --------------------------------------------------
+    st.header("❌ Why Prompts Fail")
+
+    st.markdown("""
+    Most prompts fail because they are:
+    - Too vague → "Write about marketing"
+    - Missing role → AI doesn't know perspective
+    - No structure → output becomes messy
+    - No constraints → output becomes too long or irrelevant
     """)
 
     st.markdown("---")
 
-    st.header("🔹 The SHARP Framework")
+    # --------------------------------------------------
+    # SECTION 3: SHARP FRAMEWORK
+    # --------------------------------------------------
+    st.header("🧠 The SHARP Framework")
 
     st.markdown("""
+    SHARP helps you structure prompts clearly:
+
     - **S — Situation** → Context  
     - **H — Hat** → Role  
     - **A — Ask** → Task  
@@ -19,74 +50,97 @@ def show():
     - **P — Product** → Output format  
     """)
 
+    st.success("If a prompt is missing 2–3 of these → quality drops significantly.")
+
+    # --------------------------------------------------
+    # SECTION 4: WEAK VS STRONG PROMPTS
+    # --------------------------------------------------
+    st.header("⚖️ Weak vs Strong Prompts")
+
+    examples = [
+        (
+            "Marketing",
+            "Write about marketing",
+            "You are a marketing strategist. Explain digital marketing strategies for startups. Include 3 examples and present in bullet points."
+        ),
+        (
+            "HR",
+            "Write HR policy",
+            "You are an HR manager. Create a remote work policy including eligibility, expectations, and compliance rules. Present with headings."
+        ),
+        (
+            "Finance",
+            "Explain budgeting",
+            "You are a finance expert. Explain zero-based budgeting with advantages, disadvantages, and a real-world example."
+        )
+    ]
+
+    for domain, weak, strong in examples:
+        with st.expander(f"{domain} Example"):
+            st.markdown(f"❌ **Weak Prompt:** {weak}")
+            st.markdown(f"✅ **Strong Prompt:** {strong}")
+
     st.markdown("---")
 
-    st.header("❌ Weak vs ✅ Strong Prompt")
+    # --------------------------------------------------
+    # SECTION 5: MANAGEMENT DOMAIN EXAMPLES
+    # --------------------------------------------------
+    st.header("📊 Management Domain Examples")
+
+    domain_examples = [
+        "Marketing strategy for product launch",
+        "HR policy for remote teams",
+        "Financial analysis for budgeting",
+        "Business strategy for market expansion",
+        "Operations improvement plan",
+        "Leadership coaching advice",
+        "Customer experience improvement",
+        "Project management roadmap",
+        "Startup idea evaluation",
+        "Risk management analysis"
+    ]
+
+    for ex in domain_examples:
+        st.write(f"- {ex}")
+
+    st.markdown("---")
+
+    # --------------------------------------------------
+    # SECTION 6: COMMON MISTAKES
+    # --------------------------------------------------
+    st.header("⚠️ Common Prompt Mistakes")
 
     st.markdown("""
-    **Weak Prompt:**
-    > Write about marketing.
+    Avoid these:
 
-    **Strong Prompt:**
-    > You are a marketing strategist. Write a 300-word explanation of digital marketing strategies for startups. Include 3 examples and present output in bullet points.
+    - No role → "Explain AI"
+    - No structure → long paragraphs with no clarity
+    - No constraints → too generic output
+    - No output format → hard to use results
     """)
 
     st.markdown("---")
 
-    st.header("📊 Real Examples (Management Domains)")
+    # --------------------------------------------------
+    # SECTION 7: REWRITE PRACTICE
+    # --------------------------------------------------
+    st.header("🧪 Practice: Improve This Prompt")
 
-    examples = [
-        ("Marketing", "Write a product launch plan", 
-         "You are a marketing strategist. Create a product launch plan for a skincare brand targeting Gen Z. Include channels, budget allocation, and timeline."),
+    weak_prompt = st.text_area(
+        "Rewrite this weak prompt using SHARP:",
+        value="Explain marketing",
+        height=100
+    )
 
-        ("HR", "Write HR policy", 
-         "You are an HR manager. Create a remote work policy for a tech company. Include eligibility, expectations, and compliance rules."),
-
-        ("Finance", "Explain budgeting", 
-         "You are a finance expert. Explain zero-based budgeting with a real-world example and pros/cons."),
-
-        ("Operations", "Improve supply chain", 
-         "You are an operations consultant. Suggest 5 ways to optimize supply chain efficiency for a manufacturing firm."),
-
-        ("Strategy", "Business strategy", 
-         "You are a business strategist. Create a growth strategy for a SaaS startup entering the US market."),
-
-        ("Leadership", "Leadership advice", 
-         "You are a leadership coach. Provide 5 actionable strategies to improve team motivation."),
-
-        ("Analytics", "Analyze data", 
-         "You are a data analyst. Analyze customer churn factors and suggest actionable insights."),
-
-        ("Entrepreneurship", "Startup idea", 
-         "You are a startup mentor. Evaluate a fintech idea for scalability and risks."),
-
-        ("Project Management", "Project plan", 
-         "You are a project manager. Create a project plan with milestones and risk mitigation."),
-
-        ("Communication", "Write email", 
-         "You are a business communication expert. Write a professional email for client onboarding."),
-
-        ("Sales", "Sales pitch", 
-         "You are a sales expert. Write a persuasive pitch for B2B SaaS product."),
-
-        ("Customer Experience", "Improve CX", 
-         "You are a CX strategist. Suggest improvements for customer retention."),
-
-        ("Risk Management", "Risk analysis", 
-         "You are a risk analyst. Identify risks in digital transformation projects."),
-
-        ("Consulting", "Consulting advice", 
-         "You are a consultant. Provide recommendations to improve operational efficiency."),
-
-        ("Innovation", "Innovation strategy", 
-         "You are an innovation strategist. Suggest disruptive ideas for retail industry.")
-    ]
-
-    for domain, weak, strong in examples:
-        with st.expander(f"📌 {domain} Example"):
-            st.markdown(f"**Weak Prompt:** {weak}")
-            st.markdown(f"**Improved Prompt:** {strong}")
+    if st.button("Show Example Improvement"):
+        st.success("""
+        You are a marketing strategist. Explain digital marketing strategies for startups.
+        Include 3 examples and present the output in bullet points.
+        """)
 
     st.markdown("---")
 
-    st.success("Next → Go to Evaluate Prompt to test your prompts.")
+    # --------------------------------------------------
+    # SECTION 8: NEXT STEP
+    # --------------------------------------------------
+    st.success("Next → Go to Practice Lab and start writing prompts.")
